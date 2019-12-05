@@ -1,0 +1,26 @@
+---
+- name: Ensure gpg2 is installed
+  apt:
+    name: "{{ gpg2_package }}"
+    state: "{{ gpg2_package_state | default(apt_security_package_state) }}"
+    cache_valid_time: "{{ apt_cache_valid_time }}"
+
+- name: Ensure apt-transport is installed
+  apt:
+    name: "{{ apt_transport_package }}"
+    state: present
+    cache_valid_time: "{{ apt_cache_valid_time }}"
+
+- name: Get wpe gpg2
+  get_url:
+    url: "{{ wpe_gpg_url }}{{ wpe_gpg }}"
+    dest: ./"{{ wpe_gpg }}"
+
+- name: Add key
+  apt-key:
+    data: "{{ lookup('file', {{ wpe_gpg }}) }}"
+    state: present
+
+- name: add  Dev Kit deb
+  apt:
+    deb: http://apt.wpengine.net.s3-website-us-east-1.amazonaws.com
