@@ -12,15 +12,14 @@
     cache_valid_time: "{{ apt_cache_valid_time }}"
 
 - name: Get wpe gpg2
-  get_url:
+  apt_key:
     url: "{{ wpe_gpg_url }}{{ wpe_gpg }}"
-    dest: ./"{{ wpe_gpg }}"
-
-- name: Add key
-  apt-key:
-    data: "{{ lookup('file', {{ wpe_gpg }}) }}"
     state: present
 
 - name: add  Dev Kit deb
+  shell: echo "deb http://apt.wpengine.net.s3-website-us-east-1.amazonaws.com all main" | sudo tee /etc/apt/sources.list.d/apt.wpengine.net.list
+
+- name: install wpe-cli
   apt:
-    deb: http://apt.wpengine.net.s3-website-us-east-1.amazonaws.com
+    name: wpe-cli
+    state: present
