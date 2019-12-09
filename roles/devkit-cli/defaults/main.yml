@@ -4,4 +4,5 @@ apt_transport_package: apt-transport-https
 wpe_gpg: apt.wpengine.gpg
 wpe_gpg_url: https://s3.dualstack.us-east-1.amazonaws.com/apt.wpengine.net/
 fingerprint: D4E181E8
-
+wpe_email: roy@blueshoon.com
+ssh_path: ~/.ssh/id_rsa.pub

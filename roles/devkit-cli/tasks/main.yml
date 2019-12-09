@@ -19,7 +19,23 @@
 - name: add  Dev Kit deb
   shell: echo "deb http://apt.wpengine.net.s3-website-us-east-1.amazonaws.com all main" | sudo tee /etc/apt/sources.list.d/apt.wpengine.net.list
 
+- name: update cache
+  apt:
+    update_cache: yes
+
 - name: install wpe-cli
   apt:
     name: wpe-cli
     state: present
+
+- name: get repo
+  delegate_to: 127.0.0.1
+  become: no
+  git:
+    repo: git@github.com:blueshoon/blueshoon.git
+    dest: ../site/web/repo
+
+- name: pull instance down
+  delegate_to: 127.0.0.1
+  become: no
+  shell: cd ../site/web/ && wpe clone blueshoondev
