@@ -1,0 +1,64 @@
+---
+- name: get repo
+  delegate_to: 127.0.0.1
+  become: no
+  git:
+    repo: "{{ item.value.repo }}"
+    dest: ../site/web/repo
+  with_dict: "{{ wordpress_sites }}"
+
+- name: pull instance down
+  delegate_to: 127.0.0.1
+  become: no
+  shell: "cd ../site/web/ && wpe clone {{ item.value.wpe_instance }}"
+  with_dict: "{{ wordpress_sites }}"
+
+- name: move sql files
+  delegate_to: 127.0.0.1
+  become: no
+  copy:
+    src: "../site/web/{{ item.value.wpe_instance }}/wp-content/mysql.sql"
+    dest: ../site/mysql.sql
+  with_dict: "{{ wordpress_sites }}"
+
+- name: delete source sql
+  delegate_to: 127.0.0.1
+  become: no
+  file:
+    path: "../site/web/{{ item.value.wpe_instance }}/wp-content/mysql.sql"
+    state: absent
+  with_dict: "{{ wordpress_sites }}"
+
+- name: get instance files
+  delegate_to: 127.0.0.1
+  become: no
+  synchronize:
+      dest: ../site/web/repo/wp-content/
+      src: "../site/web/{{ item.value.wpe_instance }}/wp-content/"
+      rsync_opts:
+        - "--exclude=themes"
+        - "--exclude=mu-plugins"
+  with_dict: "{{ wordpress_sites }}"
+
+- name: sync uploads
+  delegate_to: 127.0.0.1
+  become: no
+  synchronize:
+      dest: ../site/web/repo/wp-content/uploads/
+      src: "{{ item.value.wpe_ssh_server }}:/sites/{{ item.value.wpe_instance }}/wp-content/uploads/"
+      set_remote_user: yes
+  with_dict: "{{ wordpress_sites }}"
+
+- name: Import Instance DB
+  become: no
+  command: wp db import mysql.sql
+  args:
+    chdir: "{{ www_root }}/{{ item.key }}/{{ item.value.current_path | default('current') }}/"
+  with_dict: "{{ wordpress_sites }}"
+
+- name: Replace domain
+  become: no
+  command: "wp search-replace 'http[s]?://{{ item.key }}' 'http://{{ item.value.site_hosts[0].canonical }}' --regex"
+  args:
+    chdir: "{{ www_root }}/{{ item.key }}/{{ item.value.current_path | default('current') }}/"
+  with_dict: "{{ wordpress_sites }}"

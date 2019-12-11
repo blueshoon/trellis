@@ -29,3 +29,4 @@
     - { role: devkit-cli, tags: [devkit] }
     - { role: wordpress-setup, tags: [wordpress, wordpress-setup] }
     - { role: wordpress-install, tags: [wordpress, wordpress-install] }
+    - { role: dev-setup, tags: [dev-setup] }
