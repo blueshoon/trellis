@@ -66,7 +66,7 @@ $ git clone --depth=1 git@github.com:roots/trellis.git && rm -rf trellis/.git
 ```
 3. Install Bedrock into the `site` directory:
 ```plain
-$ composer create-project roots/bedrock site
+$ composer create-project --repository-url=trellis/bedrock.json blueshoon/bedrock site
 ```
 
 ## Local development setup

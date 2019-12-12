@@ -19,4 +19,5 @@ wordpress_sites:
       enabled: false
     repo: git@github.com:example/example.git
     wpe_instance: example
-    wpe_ssh_server: example@example.ssh.wpengine.net
+    wpe_ssh_server: example.ssh.wpengine.net
+    wpe_ssh_user: example

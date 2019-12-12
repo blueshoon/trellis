@@ -39,3 +39,10 @@
 
 [web]
 192.168.50.5 ansible_connection=local
+
+[wpe]
+example.ssh.wpengine.net ansible_connection=ssh
+
+[wpe:vars]
+ansible_user=example
+ansible_ssh_user=example

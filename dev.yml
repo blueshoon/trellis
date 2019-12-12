@@ -30,3 +30,11 @@
     - { role: wordpress-setup, tags: [wordpress, wordpress-setup] }
     - { role: wordpress-install, tags: [wordpress, wordpress-install] }
     - { role: dev-setup, tags: [dev-setup] }
+    - { role: asset-sync, tags:[asset-sync] }
+
+# - name: Sync assets from server
+#   hosts: wpe
+#   become: no
+#   remote_user: blueshoon
+
+#   roles:

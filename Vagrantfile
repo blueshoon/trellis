@@ -145,7 +145,8 @@ Vagrant.configure('2') do |config|
 
     ansible.groups = {
       'web' => ['default'],
-      'development' => ['default']
+      'development' => ['default'],
+      'wpe' => ['default']
     }
 
     ansible.tags = ENV['ANSIBLE_TAGS']

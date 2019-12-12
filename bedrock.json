@@ -1,0 +1,11 @@
+[
+	{
+		"name" : "blueshoon/bedrock",
+		"version": "1.12.8",
+		"source" : {
+			"type": "git",
+			"reference" : "master",
+			"url": "https://github.com/blueshoon/bedrock.git"
+		}
+	}
+]
