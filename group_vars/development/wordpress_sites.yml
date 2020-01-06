@@ -3,13 +3,13 @@
 # Define accompanying passwords/secrets in group_vars/development/vault.yml
 
 wordpress_sites:
-  example.com:
+  blueshoon.com:
     site_hosts:
-      - canonical: example.test
+      - canonical: blueshoon.test
         redirects:
-          - www.example.test
+          - www.blueshoon.test
     local_path: ../site # path targeting local Bedrock site directory (relative to Ansible root)
-    admin_email: admin@example.test
+    admin_email: admin@blueshoon.test
     multisite:
       enabled: false
     ssl:
@@ -17,7 +17,7 @@ wordpress_sites:
       provider: self-signed
     cache:
       enabled: false
-    repo: git@github.com:example/example.git
-    wpe_instance: example
-    wpe_ssh_server: example.ssh.wpengine.net
-    wpe_ssh_user: example
+    repo: git@github.com:blueshoon/blueshoon.git
+    wpe_instance: blueshoon
+    wpe_ssh_server: blueshoon.ssh.wpengine.net
+    wpe_ssh_user: blueshoon

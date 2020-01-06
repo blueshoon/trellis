@@ -26,11 +26,10 @@
     - { role: logrotate, tags: [logrotate] }
     - { role: composer, tags: [composer] }
     - { role: wp-cli, tags: [wp-cli] }
-    - { role: devkit-cli, tags: [devkit] }
     - { role: wordpress-setup, tags: [wordpress, wordpress-setup] }
     - { role: wordpress-install, tags: [wordpress, wordpress-install] }
     - { role: dev-setup, tags: [dev-setup] }
-    - { role: asset-sync, tags:[asset-sync] }
+    - { role: asset-sync, tags: [asset-sync] }
 
 # - name: Sync assets from server
 #   hosts: wpe

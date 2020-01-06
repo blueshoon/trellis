@@ -1,0 +1,7 @@
+---
+- name: run gulp
+  become: no
+  command: "gulp build"
+  args:
+    chdir: "{{ www_root }}/{{ item.key }}/{{ item.value.current_path | default('current') }}/web/{{ repo_name }}"
+  with_dict: "{{ wordpress_sites }}"
