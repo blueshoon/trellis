@@ -62,7 +62,7 @@ $ mkdir example.com && cd example.com
 ```
 2. Install Trellis:
 ```plain
-$ git clone --depth=1 git@github.com:roots/trellis.git && rm -rf trellis/.git
+$ git clone --depth=1 git@github.com:blueshoon/trellis.git && rm -rf trellis/.git
 ```
 3. Install Bedrock into the `site` directory:
 ```plain
