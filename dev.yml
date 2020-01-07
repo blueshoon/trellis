@@ -25,12 +25,12 @@
     - { role: nginx, tags: [nginx] }
     - { role: logrotate, tags: [logrotate] }
     - { role: composer, tags: [composer] }
-    - { role: npm-install, tags: [npm-install] }
     - { role: wp-cli, tags: [wp-cli] }
     - { role: wordpress-setup, tags: [wordpress, wordpress-setup] }
     - { role: wordpress-install, tags: [wordpress, wordpress-install] }
     - { role: dev-setup, tags: [dev-setup] }
     - { role: asset-sync, tags: [asset-sync] }
+    - { role: npm-install, tags: [npm-install] }
 
 # - name: Sync assets from server
 #   hosts: wpe
