@@ -1,10 +1,7 @@
 ---
-- name: set node path
-  set_fact:
-      nodejs_package_json_path: "{{ www_root }}/{{ item.key }}/{{ item.value.current_path | default('current') }}/web/{{ item.value.wpe_instance }}"
+- name: run npm install
+  command: npm install
+  connection: local
+  args:
+      chdir: "{{ www_root }}/{{ item.key }}/{{ item.value.current_path | default('current') }}/web/{{ item.value.wpe_instance }}"
   with_dict: "{{ wordpress_sites }}"
-
-- name: Install packages defined in a given package.json.
-  npm:
-    path: "{{ nodejs_package_json_path }}"
-  when: nodejs_package_json_path is defined and nodejs_package_json_path
