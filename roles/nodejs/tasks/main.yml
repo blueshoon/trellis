@@ -1,8 +1,0 @@
----
-- name: run npm install
-  command: npm install
-  connection: local
-  args:
-      chdir: "{{ www_root }}/{{ item.key }}/{{ item.value.current_path | default('current') }}/web/{{ item.value.wpe_instance }}"
-  with_dict: "{{ wordpress_sites }}"
-  become: no

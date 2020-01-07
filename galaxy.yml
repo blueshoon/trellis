@@ -18,6 +18,6 @@
   src: geerlingguy.mailhog
   version: 2.1.4
 
-# - name: nodejs
-#   src: geerlingguy.nodejs
-#   version: 5.0.0
+- name: nodejs
+  src: geerlingguy.nodejs
+  version: 5.0.0
