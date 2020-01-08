@@ -1,0 +1,15 @@
+---
+- name: remove wp dir
+  file:
+    path: "../site/web/app"
+    state: absent
+
+- name: remove sql files
+  file:
+    path: "{{ item }}"
+    state: absent
+  with_items:
+    - "../site/web/{{ item.value.wpe_instance }}/wp-content/export.sql"
+    - "../site/web/{{ item.value.wpe_instance }}/wp-content/mysql.sql"
+    - "../site/web/{{ item.value.wpe_instance }}/wp-content/debug.log"
+  with_dict: "{{ wordpress_sites }}"

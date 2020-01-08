@@ -31,10 +31,5 @@
     - { role: dev-setup, tags: [dev-setup] }
     - { role: asset-sync, tags: [asset-sync] }
     - { role: npm-install, tags: [npm-install] }
-
-# - name: Sync assets from server
-#   hosts: wpe
-#   become: no
-#   remote_user: blueshoon
-
-#   roles:
+    - { role: gulp, tags: [gulp] }
+    - { role: dev-cleanup, tags: [dev-cleanup] }

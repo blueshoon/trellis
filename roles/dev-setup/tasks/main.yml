@@ -1,15 +1,10 @@
 ---
-- name: get repo name
-  set_fact:
-    repo_name: "{{ item.value.repo.split('/')[1].split('.')[0] }}"
-  with_dict: "{{ wordpress_sites }}"
-
 - name: get repo
   delegate_to: 127.0.0.1
   become: no
   git:
     repo: "{{ item.value.repo }}"
-    dest: "../site/web/{{ repo_name }}"
+    dest: "../site/web/{{ item.value.wpe_instance }}"
     force: yes
   with_dict: "{{ wordpress_sites }}"
 
@@ -23,21 +18,21 @@
 - name: get uploads
   delegate_to: 127.0.0.1
   become: no
-  command: "rsync -avz --exclude 'mu-plugins' --exclude 'ai1wm-backups' --exclude 'themes' {{ item.value.wpe_ssh_user }}@{{ item.value.wpe_ssh_server }}:sites/{{ item.value.wpe_instance }}/wp-content/ ../site/web/{{ repo_name }}/wp-content/"
+  command: "rsync -avz --exclude 'mu-plugins' --exclude 'ai1wm-backups' --exclude 'themes' {{ item.value.wpe_ssh_user }}@{{ item.value.wpe_ssh_server }}:sites/{{ item.value.wpe_instance }}/wp-content/ ../site/web/{{ item.value.wpe_instance }}/wp-content/"
   with_dict: "{{ wordpress_sites }}"
 
 - name: Import Instance DB
   become: no
   command: wp db import mysql.sql
   args:
-    chdir: "{{ www_root }}/{{ item.key }}/{{ item.value.current_path | default('current') }}/web/{{ repo_name }}/wp-content/"
+    chdir: "{{ www_root }}/{{ item.key }}/{{ item.value.current_path | default('current') }}/web/{{ item.value.wpe_instance }}/wp-content/"
   with_dict: "{{ wordpress_sites }}"
 
 - name: Replace domain
   become: no
   command: "wp search-replace 'http[s]?://[www.]?{{ item.key }}' 'http://{{ item.value.site_hosts[0].canonical }}' --regex"
   args:
-    chdir: "{{ www_root }}/{{ item.key }}/{{ item.value.current_path | default('current') }}/web/{{ repo_name }}/wp-content/"
+    chdir: "{{ www_root }}/{{ item.key }}/{{ item.value.current_path | default('current') }}/web/{{ item.value.wpe_instance }}/wp-content/"
   with_dict: "{{ wordpress_sites }}"
 
 - name: update config with correct content dir
@@ -46,4 +41,4 @@
   replace:
     path: ../site/config/application.php
     regexp: repo\/wp-content
-    replace: "{{ repo_name }}/wp-content"
+    replace: "{{ item.value.wpe_instance }}/wp-content"

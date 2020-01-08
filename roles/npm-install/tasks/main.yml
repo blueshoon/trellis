@@ -6,11 +6,3 @@
   args:
     chdir: "../site/web/{{ item.value.wpe_instance }}"
   with_dict: "{{ wordpress_sites }}"
-
-- name: run gulp
-  delegate_to: 127.0.0.1
-  become: no
-  command: gulp build
-  args:
-    chdir: "../site/web/{{ item.value.wpe_instance }}"
-  with_dict: "{{ wordpress_sites }}"
