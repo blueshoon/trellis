@@ -4,5 +4,13 @@
   become: no
   command: npm i
   args:
-    chdir: "../site/web/{{ wpe_instance }}/wp-content/themes/sassapress"
+    chdir: "../site/web/{{ item.value.wpe_instance }}"
+  with_dict: "{{ wordpress_sites }}"
+
+- name: run gulp
+  delegate_to: 127.0.0.1
+  become: no
+  command: gulp build
+  args:
+    chdir: "../site/web/{{ item.value.wpe_instance }}"
   with_dict: "{{ wordpress_sites }}"
