@@ -42,3 +42,4 @@
     path: ../site/config/application.php
     regexp: repo\/wp-content
     replace: "{{ item.value.wpe_instance }}/wp-content"
+  with_dict: "{{ wordpress_sites }}"

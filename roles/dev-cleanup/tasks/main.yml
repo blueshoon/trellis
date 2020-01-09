@@ -4,12 +4,16 @@
     path: "../site/web/app"
     state: absent
 
+- name: set instance var
+  set_fact:
+      wpe_instance: "{{ item.value.wpe_instance }}"
+  with_dict: "{{ wordpress_sites }}"
+
 - name: remove sql files
   file:
     path: "{{ item }}"
     state: absent
   with_items:
-    - "../site/web/{{ item.value.wpe_instance }}/wp-content/export.sql"
-    - "../site/web/{{ item.value.wpe_instance }}/wp-content/mysql.sql"
-    - "../site/web/{{ item.value.wpe_instance }}/wp-content/debug.log"
-  with_dict: "{{ wordpress_sites }}"
+    - "../site/web/{{ wpe_instance }}/wp-content/export.sql"
+    - "../site/web/{{ wpe_instance }}/wp-content/mysql.sql"
+    - "../site/web/{{ wpe_instance }}/wp-content/debug.log"
